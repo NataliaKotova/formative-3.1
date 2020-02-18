@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         },
         files: {                         // Dictionary of files
           'css/style.css': 'sass/style.scss', // instead of koala, 'destination': 'source'
-          'widgets.css': 'widgets.scss'
+          // 'widgets.css': 'widgets.scss'
         }
       }
     },//sass
@@ -34,6 +34,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   // Default task(s).
   // grunt.registerTask('default', ['uglify']);
-  grunt.registerTask('test', ['sass','jshint']);
+  grunt.registerTask('default', ['sass','jshint']);
 
 };
