@@ -18,6 +18,14 @@ $(document).ready(function(){
   //console.log(url);
 
   //reading user's choice
+  document.getElementById('submit').addEventListener('click', function(){
+      var country = document.getElementById('inputCountry').value;
+      console.log(country);
+      var category = document.getElementById('inputCategory').value;
+      console.log(category);
+      var source = document.getElementById('inputSource').value;
+      console.log(source);
+  });
 
   function displayAllNews(array){
     var i;
