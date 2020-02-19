@@ -1,18 +1,23 @@
+
+
+
+
 $(document).ready(function(){
-  var myKey = JSON.parse(apiKey);  
+  var myKey = JSON.parse(apiKey);
   console.log(myKey[0]);
   myKey = myKey[0].key;
   console.log(myKey);
 
-  // var url = 'http://newsapi.org/v2/top-headlines?'+ 
-  // 'country=nz&'+ 
-  // 'apiKey=' + myKey;
+  var url;
 
-  var url = 'http://newsapi.org/v2/everything?'+ 'q=all&' + 'apiKey=' + myKey;
-  // 'country=nz&'+ 
-  
+  var url = 'http://newsapi.org/v2/top-headlines?'+
+    'country=nz&'+
+    'apiKey=' + myKey;
 
-  console.log(url);
+
+  //console.log(url);
+
+  //reading user's choice
 
   function displayAllNews(array){
     var i;
@@ -22,17 +27,15 @@ $(document).ready(function(){
         array[i] = array[i+1];
       }
       document.getElementById('result').innerHTML +=
-        `<div class="card col-lg-4 mb-5">
-        <img src="${array[i].urlToImage}" class="card-img-top" alt="Image">
-        <div class="card-body">
-          <h5 class="card-title"><a href="${array[i].url}" target="blank">${array[i].title}</a></h5>
-          <p class="card-text">${array[i].description}</p>
-          ${/* <a href="${array[i].url}" target="blank" class="btn btn-primary d-inline">Read</a>*/''}
-          <div class"d-inline">
-          <small class="d-inline">${array[i].source.name}</small>
-          <small class="d-inline">${array[i].source.name}</small>
-        </div>
-      </div>`;
+        '<div class="card col-lg-4 mb-5">'+
+        '<img src="'+ array[i].urlToImage +'" class="card-img-top" alt="Image">'+
+        '<div class="card-body">'+
+          '<h5 class="card-title"><a href="'+ array[i].url + '" target="blank">'+array[i].title + '</a></h5>'+
+          '<p class="card-text">'+array[i].description+'</p>'+
+          '<div class"d-inline">'+
+          '<small class="d-inline">'+array[i].source.name+'</small>'+
+        '</div>'+
+      '</div>';
     }
   };
 
@@ -50,10 +53,10 @@ $(document).ready(function(){
           console.log(data);
           console.log(data.articles[0]);
           displayAllNews(data.articles);
-        }, 
+        },
         error: function(){
           console.log('error');
-        } 
+        }
     }); //ajax
 
 });//document.ready
