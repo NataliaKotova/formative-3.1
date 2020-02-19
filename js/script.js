@@ -19,10 +19,19 @@ var userInput = new StoreUserInputData();
     console.log(userInput.country, userInput.category, userInput.source)
   }
 
+  var url = 'http://newsapi.org/v2/top-headlines?'+
+  'country=nz&'+
+  'apiKey=' + apiKey;
+  queryApi(url);
+
+
   function createRequestUrl(){
+    var url = '';
+    var selectNameValue = $(#)
+    console.log()
     var baseUrl = 'http://newsapi.org/v2/top-headlines?';
-    var endpoint;
-    var url = baseUrl + endpoint + ''
+    // var endpoint;
+    url = baseUrl + 'country' + ''
   }
 
   function displayAllNews(array){
