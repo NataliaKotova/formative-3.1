@@ -1,31 +1,29 @@
+function StoreUserInputData(){
+  this.country = null;
+  this.category = null;
+  this.source = null;
+}
 
+var userInput = new StoreUserInputData();
 
+  function saveData(country, category, source){
+    if(country !== ""){
+      userInput.country = country;
+    }
+    if (category !== ""){
+      userInput.category = category;
+    }
+    if(source !== ""){
+      userInput.source = source;
+    }
+    console.log(userInput.country, userInput.category, userInput.source)
+  }
 
-
-$(document).ready(function(){
-  var myKey = JSON.parse(apiKey);
-  console.log(myKey[0]);
-  myKey = myKey[0].key;
-  console.log(myKey);
-
-  var url;
-
-  var url = 'http://newsapi.org/v2/top-headlines?'+
-    'country=nz&'+
-    'apiKey=' + myKey;
-
-
-  //console.log(url);
-
-  //reading user's choice
-  document.getElementById('submit').addEventListener('click', function(){
-      var country = document.getElementById('inputCountry').value;
-      console.log(country);
-      var category = document.getElementById('inputCategory').value;
-      console.log(category);
-      var source = document.getElementById('inputSource').value;
-      console.log(source);
-  });
+  function createRequestUrl(){
+    var baseUrl = 'http://newsapi.org/v2/top-headlines?';
+    var endpoint;
+    var url = baseUrl + endpoint + ''
+  }
 
   function displayAllNews(array){
     var i;
@@ -35,7 +33,7 @@ $(document).ready(function(){
         array[i] = array[i+1];
       }
       document.getElementById('result').innerHTML +=
-        '<div class="card col-lg-4 mb-5">'+
+        '<div class="card col-md-4 col-lg-4 mb-5">'+
         '<img src="'+ array[i].urlToImage +'" class="card-img-top" alt="Image">'+
         '<div class="card-body">'+
           '<h5 class="card-title"><a href="'+ array[i].url + '" target="blank">'+array[i].title + '</a></h5>'+
@@ -47,24 +45,45 @@ $(document).ready(function(){
     }
   };
 
-  var req = new Request(url);
-      fetch(req)
-          .then(function (response) {
-              console.log(response.json());
-          });
+function testApiKey(apiKey){
+  var url = 'http://newsapi.org/v2/top-headlines?'+
+  'country=nz&'+
+  'apiKey=' + apiKey;
+  queryApi(url);
+}
 
-      $.ajax({
-        url: url,
-        type:'GET',
-        data:'json',
-        success: function(data){
-          console.log(data);
-          console.log(data.articles[0]);
-          displayAllNews(data.articles);
-        },
-        error: function(){
-          console.log('error');
-        }
-    }); //ajax
+
+function queryApi(url){
+  $.ajax({
+    url: url,
+    type:'GET',
+    data:'json',
+    success: function(data){
+      console.log(data);
+      console.log(data.articles[0]);
+      displayAllNews(data.articles);
+  
+    },
+    error: function(){
+      console.log('error');
+    }
+  });
+}
+
+$(document).ready(function(){
+  var myKey = JSON.parse(apiKey);
+  console.log(myKey[0]);
+  myKey = myKey[0].key;
+  console.log(myKey);
+  testApiKey(myKey);
+
+  document.getElementById('submit').addEventListener('click', function(){
+      var country = document.getElementById('inputCountry').value;
+      var category = document.getElementById('inputCategory').value;
+      var source = document.getElementById('inputSource').value;
+      saveData(country, category, source);
+  });
+
 
 });//document.ready
+
