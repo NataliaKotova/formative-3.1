@@ -2,6 +2,7 @@ function StoreUserInputData(){
   this.country = null;
   this.category = null;
   this.source = null;
+  this.countryApiCode = null;
 }
 
 var userInput = new StoreUserInputData();
@@ -9,14 +10,20 @@ var userInput = new StoreUserInputData();
   function saveData(country, category, source){
     if(country !== ""){
       userInput.country = country;
+      var valueSelectedCountry = $( "#inputCountry option:selected" ).value();
+      console.log(valueSelectedCountry);
     }
     if (category !== ""){
       userInput.category = category;
+      var valueSelectedCtegory = $( "#inputCategory option:selected" ).value();
+      console.log(valueSelected);
     }
     if(source !== ""){
       userInput.source = source;
+      var valueSelectedSource = $( "#inputCountry option:selected" ).value();
+      console.log(valueSelectedSource);
     }
-    console.log(userInput.country, userInput.category, userInput.source)
+    // console.log(userInput.country, userInput.category, userInput.source);
   }
 
   var url = 'http://newsapi.org/v2/top-headlines?'+
@@ -27,8 +34,8 @@ var userInput = new StoreUserInputData();
 
   function createRequestUrl(){
     var url = '';
-    var selectNameValue = $(#)
-    console.log()
+    // var selectNameValue = $(#)
+    console.log();
     var baseUrl = 'http://newsapi.org/v2/top-headlines?';
     // var endpoint;
     url = baseUrl + 'country' + ''
