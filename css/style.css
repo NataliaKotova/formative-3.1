@@ -9,9 +9,13 @@
   border-radius: 0;
 }
 
-.btn {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+hr {
+  border-top: 1px solid black !important;
+}
+
+.card .card-img-top {
+  max-height: 15em !important;
+  border-radius: 0 !important;
 }
 
 /*# sourceMappingURL=style.css.map */
