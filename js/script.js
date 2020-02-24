@@ -5,14 +5,14 @@ $(document).ready(function(){
   //console.log(myKey);
   testApiKey(myKey);
   //first action, what happen on submit
-  document.getElementById('submit').addEventListener('click', function(){
+  document.getElementById('submit1').addEventListener('click', function(){
       var country = document.getElementById('inputCountry').value;
       var category = document.getElementById('inputCategory').value;
-      var source = document.getElementById('inputSource').value;
+      // var source = document.getElementById('inputSource').value;
   //call functions set#1
-      saveData(country, category, source);
+      saveData(country, category);
       var url = buildUrl();
-      // queryApi(url);
+      queryApi(url);
   });
 });//document.ready
 
@@ -27,7 +27,7 @@ function queryApi(url){
       console.log(data.articles[0]);
       // console.log(data.articles[0].source);
       //call function to create array with sources object
-      createSourceList(data.articles);
+      // createSourceList(data.articles);
       displayAllNews(data.articles);
     },
     error: function(){
@@ -37,8 +37,6 @@ function queryApi(url){
 }
 //==============================================================================
 
-//functions set #1
-//store user input in
 function StoreUserInputData(){
   this.countryCode = null;
   this.categoryCode = null;
@@ -46,7 +44,7 @@ function StoreUserInputData(){
 }
 var userInput = new StoreUserInputData();
 
-function saveData(country, category, source){
+function saveData(country, category){
   if(country !== ""){
     var valueSelectedCountry = $("#inputCountry option:selected").val();
     userInput.countryCode = valueSelectedCountry;
@@ -55,13 +53,8 @@ function saveData(country, category, source){
     var valueSelectedCategory = $( "#inputCategory option:selected").val();
     userInput.categoryCode = valueSelectedCategory;
   }
-  if(source !== ""){
-    var valueSelectedSource = $( "#inputSource option:selected" ).val();
-    // var valueSelectedSource = $(this.value);
-    console.log(valueSelectedSource);
-    userInput.sourceCode = valueSelectedSource;
-  }
-  console.log(userInput.sourceCode);
+  
+  console.log(userInput);
 }
 //==============================================================================
 function buildUrl(){
@@ -72,15 +65,13 @@ function buildUrl(){
   if(userInput.categoryCode != null){
     url +=  '&category=' + userInput.categoryCode;
   }
-  if(userInput.sourceCode != null){
-    url += '&sources=' + userInput.sourceCode;
-  }
-
   console.log(url);
   return url;
 }
 
 var sources = [];
+var articles = [];
+
 function createSourceDropdown(arr){
   $.each(arr, function(key, value) {
     $('#inputSource')
@@ -109,15 +100,6 @@ function selectCountryOnChange(){
 }
 
 selectCountryOnChange();
-
-function checkSource(sourceName){
-  if(sourceName === this.sourceCode){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
 
 function displayAllNews(array){
   var i;
