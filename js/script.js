@@ -1,11 +1,49 @@
-var sources = [];
+$(document).ready(function(){
+  myKey = JSON.parse(apiKey);
+  //console.log(myKey[0]);
+  myKey = myKey[0].key;
+  //console.log(myKey);
+  testApiKey(myKey);
+  //first action, what happen on submit
+  document.getElementById('submit').addEventListener('click', function(){
+      var country = document.getElementById('inputCountry').value;
+      var category = document.getElementById('inputCategory').value;
+      var source = document.getElementById('inputSource').value;
+  //call functions set#1
+      saveData(country, category, source);
+      var url = buildUrl();
+      // queryApi(url);
+  });
+});//document.ready
 
+
+function queryApi(url){
+  $.ajax({
+    url: url,
+    type:'GET',
+    data:'json',
+    success: function(data){
+      // console.log(data);
+      console.log(data.articles[0]);
+      // console.log(data.articles[0].source);
+      //call function to create array with sources object
+      createSourceList(data.articles);
+      displayAllNews(data.articles);
+    },
+    error: function(){
+      console.log('error');
+    }
+  });
+}
+//==============================================================================
+
+//functions set #1
+//store user input in
 function StoreUserInputData(){
   this.countryCode = null;
   this.categoryCode = null;
   this.sourceCode = null;
 }
-
 var userInput = new StoreUserInputData();
 
 function saveData(country, category, source){
@@ -19,20 +57,13 @@ function saveData(country, category, source){
   }
   if(source !== ""){
     var valueSelectedSource = $( "#inputSource option:selected" ).val();
+    // var valueSelectedSource = $(this.value);
+    console.log(valueSelectedSource);
     userInput.sourceCode = valueSelectedSource;
   }
-  // console.log(userInput);
+  console.log(userInput.sourceCode);
 }
-
-function selectOnChange(){
-  $('#inputCountry').on('change', function(){
-    userInput.countryCode = this.value;
-    // console.log(userInput.countryCode);
-  });
-}
-
-selectOnChange();
-
+//==============================================================================
 function buildUrl(){
   var url = 'http://newsapi.org/v2/top-headlines?' + 'apiKey=' + myKey;
   if(userInput.countryCode != null){
@@ -45,8 +76,47 @@ function buildUrl(){
     url += '&sources=' + userInput.sourceCode;
   }
 
+  console.log(url);
   return url;
-  // console.log(url);
+}
+
+var sources = [];
+function createSourceDropdown(arr){
+  $.each(arr, function(key, value) {
+    $('#inputSource')
+      .append($("<option></option>")
+      .attr("value",key)
+      .text(value));
+  });
+}
+
+function createSourceList(arr){
+  var allSources = [];
+  for(var i=0; i<arr.length; i++){
+    allSources.push(arr[i].source.name);
+  }
+  sources = [...new Set(allSources)];
+  createSourceDropdown(sources);
+  console.log(sources);
+}
+
+function selectCountryOnChange(){
+  $('#inputCountry').on('change', function(){
+    userInput.countryCode = this.value;
+    // createSourceList(arr);
+    console.log(userInput.countryCode);
+  });
+}
+
+selectCountryOnChange();
+
+function checkSource(sourceName){
+  if(sourceName === this.sourceCode){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
 function displayAllNews(array){
@@ -57,7 +127,7 @@ function displayAllNews(array){
       array[i] = array[i+1];
     }
     document.getElementById('result').innerHTML +=
-      '<div class="col-md-4 col-lg-4 mb-5">'+
+      '<div class="col-md-3 col-lg-3 mb-5">'+
       '<div class="card">'+
       '<img src="'+ array[i].urlToImage +'" class="card-img-top" alt="Image">'+
       '<div class="card-body">'+
@@ -77,59 +147,3 @@ function testApiKey(apiKey){
   'apiKey=' + apiKey;
   queryApi(url);
 }
-
-
-function createSourceDropdown(sourcesArray){
-  $.each(sourcesArray, function(key, value) {
-    $('#inputSource')
-      .append($("<option></option>")
-      .attr("value",key)
-      .text(value));
-  });
-}
-
-function createSourceList(arr){
-  var allSources = [];
-  for(var i=0; i<arr.length; i++){
-    allSources.push(arr[i].source.name);
-  }
-  sources = [...new Set(allSources)];
-  createSourceDropdown(sources);
-}
-
-function queryApi(url){
-  $.ajax({
-    url: url,
-    type:'GET',
-    data:'json',
-    success: function(data){
-      // console.log(data);
-      // console.log(data.articles[0]);
-      // console.log(data.articles[0].source);
-      //call function to create array with sources object
-      createSourceList(data.articles);
-      displayAllNews(data.articles);
-    },
-    error: function(){
-      console.log('error');
-    }
-  });
-}
-
-$(document).ready(function(){
-  myKey = JSON.parse(apiKey);
-  // console.log(myKey[0]);
-  myKey = myKey[0].key;
-  // console.log(myKey);
-  testApiKey(myKey);
-
-  document.getElementById('submit').addEventListener('click', function(){
-      var country = document.getElementById('inputCountry').value;
-      var category = document.getElementById('inputCategory').value;
-      var source = document.getElementById('inputSource').value;
-      saveData(country, category, source);
-      var url = buildUrl();
-      queryApi(url);
-  });
-
-});//document.ready

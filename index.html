@@ -3,45 +3,43 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel='stylesheet' href="node_modules\glyphicons" />
     <link rel="stylesheet" href="css/style.css">
     <title>formative-3.1</title>
   </head>
   <body>
     <div class="jumbotron bg-dark">
       <div class="container col-md-10">
-        <div class="d-flex">
-        <div class="d-inline">
-          <h1 class="text-white display-4 text-left">LATEST NEWS</h1>
-        </div>
-        <div class="d-inline">
+          <h1 class="text-white display-4 text-left">Latest news from around the world</h1>
           <p class="text-white text-bottom">This website has been created by Natalia Kotova</p>
-        </div>
-      </div>
       </div>
     </div>
 
     <div class="container col-md-10">
-      <hr>
-      <div class="">
-      <div class="row mb-4 ">
-      <div class="input-group col-md-3">
-        <div class="d-flex flex-column w-100">
-          <label for="inputCountry" class="font-weight-bold">Choose country:</label>
-            <select id="inputCountry" name="country" class="custom-select">
-              <option value="" disabled selected></option>
-              <option value="nz">New Zealand</option>
-              <option value="gb">United Kingdom</option>
-              <option value="us">United States</option>
-              <option value="hk">Hong Kong</option>
-              <option value="jp">Japan</option>
-            </select>
+      <div class="row">
+      <div class="col-md-8 mb-4 ">
+        <h4 class="">Search news by country or category</h4>
+        <hr class="w-100">
+        <div class="d-flex flex-row">
+        <div class="input-group d-inline col-md-4">
+          <div class="d-flex flex-column">
+            <label for="inputCountry" class="font-weight-bold">Choose country:</label>
+              <select id="inputCountry" name="country" class="custom-select">
+                <option value=""selected></option>
+                <option value="nz">New Zealand</option>
+                <option value="gb">United Kingdom</option>
+                <option value="us">United States</option>
+                <option value="hk">Hong Kong</option>
+                <option value="jp">Japan</option>
+              </select>
+          </div>
         </div>
-      </div>
-      <div class="input-group col-md-3">
-        <div class="d-flex flex-column w-100">
+      
+      <div class="input-group d-inline col-md-4">
+        <div class="d-flex flex-column ">
           <label for="inputCategory" class="control-label font-weight-bold">Choose category:</label>
           <select id="inputCategory" name="category" class="custom-select" >
-            <option value="" disabled selected></option>
+            <option value="" selected></option>
             <option value="general">General</option>
             <option value="business">Business</option>
             <option value="health">Health</option>
@@ -49,34 +47,51 @@
             <option value="sports">Sports</option>
           </select>
         </div>
-      </div>
-      <div class="input-group col-md-3">
-        <div class="d-flex flex-column w-100">
-        <label for="inputSource" class="font-weight-bold">Choose source:</label>
-        <select id="inputSource" name="sources" class="custom-select" >
-          <option value="" disabled selected></option>
-          <option value="breitbart-news">Breitbart News</option>
-        </select>
-      </div>
-    </div>
-    <div class="input-group col-md-3 ">
-      <div class="d-flex flex-column w-50 allign-bottom m-auto align-self-bottom ">
-        <button type="button" id="submit" class="btn btn-info mt-4 text-bold">Search news</button>
-      </div>
-    </div>
-    </div>
-  </div>
-  <hr class="mb-0">
-  <hr class="mt-1 mb-5">
+      </div> 
 
+      <div class="input-group col-md-3 ">
+        <div class="d-flex flex-column w-50 allign-bottom m-auto align-self-bottom ">
+          <button type="button" id="submit" class="btn btn-info mt-4 text-bold">
+           Search
+          </button>
+        </div>
+      </div>
+    </div>  
+    </div>
+    
+    <div class="col-md-4">
+      <h4 class="">Search news by source</h4>
+      <hr class="w-100">
+      <div class="d-flex flex-row">
+        <div class="d-flex flex-column">
+          <label for="inputSource" class="font-weight-bold">Choose source:</label>
+          <select id="inputSource" name="sources" class="custom-select" >
+            <option value="" selected></option>
+        </select>
+        </div>
+        <div class="d-flex allign-bottom m-auto align-self-bottom ">
+          <button type="button" id="submit" class="btn btn-info mt-4 text-bold">
+           Search
+          </button>
+      </div>
+    </div>
+    </div> 
+    </div>
+    <hr class="mb-0">
+    <hr class="mt-1 mb-5">
     <div class="container col-md-12">
       <div id="result" class="row"></div>
     </div>
+  </div>
+  
+
+    
 
 
 
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/popper.js/dist/umd/popper.min.js"> </script>
+    <script src="https://cdn.rawgit.com/download/glyphicons/0.1.0/glyphicons.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="js/config.json"></script>
     <script src="js/script.js"></script>
