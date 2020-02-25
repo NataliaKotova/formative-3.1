@@ -16,6 +16,8 @@ $(document).ready(function(){
   document.getElementById('submit2').addEventListener('click', function(){
     var valueSelectedSource = $("#inputSource option:selected").html();
     saveDataSource();
+    var urlSource = buildUrlSource();
+    queryApi(urlSource);
     console.log(valueSelectedSource);
     console.log(typeof(valueSelectedSource));
   });
@@ -89,8 +91,8 @@ function buildUrl(){
 function buildUrlSource(){
   var url = 'http://newsapi.org/v2/top-headlines?' + 'apiKey=' + myKey;
   
-  if(userInput.categoryCode != null){
-    url +=  '&category=' + userInput.categoryCode;
+  if(userInput.sourceCode != null){
+    url +=  '&sources=' + userInput.sourceCode;
   }
   console.log(url);
   return url;
@@ -120,6 +122,8 @@ function createSourceList(arr){
   console.log(sources);
 }
 
+
+
 function selectCountryOnChange(){
   $('#inputCountry').on('change', function(){
     userInput.countryCode = this.value;
@@ -137,11 +141,11 @@ function displayAllNews(array){
       array[i] = array[i+1];
     }
     document.getElementById('result').innerHTML +=
-      '<div class="col-md-4 col-lg-4 mb-5">'+
+      '<div class="col-4 mb-5">'+
       '<div class="card">'+
       '<img src="'+ array[i].urlToImage +'" class="card-img-top" alt="Image">'+
       '<div class="card-body">'+
-        '<h5 class="card-title"><a href="'+ array[i].url + '" target="blank">'+array[i].title + '</a></h5>'+
+        '<h5 class="card-title"><a class="text-info" href="'+ array[i].url + '" target="blank">'+array[i].title + '</a></h5>'+
         '<p class="card-text">'+array[i].description+'</p>'+
         '<div class"d-inline">'+
         '<small class="d-inline">Source: '+array[i].source.name+'</small>'+
@@ -153,18 +157,18 @@ function displayAllNews(array){
 
 function displayNewsBySource(array){
   var i;
-  // document.getElementById('result2').innerHTML = '';
+  document.getElementById('result2').innerHTML = '';
   for(i=0; i<array.length; i++){
     if(array[i].source.name === userInput.sourceCode){
       sources[i] = array[i];
       console.log(sources);
     }
     document.getElementById('result2').innerHTML +=
-      '<div class="col-md-4 col-lg-4 mb-5">'+
+      '<div class="col-12 mb-5">'+
       '<div class="card">'+
-      '<img src="'+ array[i].urlToImage +'" class="card-img-top" alt="Image">'+
+      // '<img src="'+ array[i].urlToImage +'" class="card-img-top" alt="Image">'+
       '<div class="card-body">'+
-        '<h5 class="card-title"><a href="'+ array[i].url + '" target="blank">'+array[i].title + '</a></h5>'+
+        '<h5 class="card-title"><a class="text-info" href="'+ array[i].url + '" target="blank">'+array[i].title + '</a></h5>'+
         '<p class="card-text">'+array[i].description+'</p>'+
         '<div class"d-inline">'+
         '<small class="d-inline">Source: '+array[i].source.name+'</small>'+
